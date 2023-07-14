@@ -32,7 +32,7 @@ class LoginController extends Controller
                 header("Location: /exercíciosIndividuais/cantina/public/adm");
                 exit;
             } else {
-                
+                $_SESSION['email'] = $email;
                 $_SESSION['userLogado'] = true;
                 header("Location: /exercíciosIndividuais/cantina/public/");
                 exit;

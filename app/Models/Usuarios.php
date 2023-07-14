@@ -79,4 +79,34 @@ class Usuarios extends DatabaseConnection{
     
         return false;
     }
+
+    public static function getUserByEmail($email){
+        $pdo = self::getPDO();
+        $select = $pdo->prepare("SELECT * from usuarios WHERE email=:email");
+        $select->bindValue(':email', $email);
+        $select->execute();
+
+        if($select->rowCount() > 0){
+            return $select->fetch(PDO::FETCH_ASSOC);
+        }
+
+        return false;
+    }
+
+    public static function atualizarUser($id, $nome, $ra, $anoEscolar){
+        $pdo = self::getPDO();
+        $update = $pdo->prepare("UPDATE usuarios SET nome=:nome, ra=:ra, anoEscolar=:anoEscolar WHERE id=:id");
+        $update->bindValue(':nome', $nome);
+        $update->bindValue(':ra', $ra);
+        $update->bindValue(':anoEscolar', $anoEscolar);
+        $update->bindValue(':id', $id);
+        $update->execute();
+        $update->execute();
+
+        if($update->rowCount() > 0){
+            return true;
+        }
+
+        return false;
+    }
 }
