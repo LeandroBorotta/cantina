@@ -22,6 +22,7 @@ use Pecee\SimpleRouter\SimpleRouter;
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/sair', 'DefaultController@sair')->name('sair');
 
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/pagamento', 'PagamentoController@pagamento')->name('pagamento');
+    SimpleRouter::post('/exercíciosIndividuais/cantina/public/pagamento', 'PagamentoController@pagamento')->name('pagamento');
 
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/config/{id}', 'ConfigController@user')->name('config');
     SimpleRouter::post('/exercíciosIndividuais/cantina/public/config/{id}', 'ConfigController@userAction')->name('config');

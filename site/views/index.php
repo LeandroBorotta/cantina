@@ -118,11 +118,16 @@
             </div>
             <div class="offcanvas-body mt-3">
                 <div class="container-fluid text-center d-flex flex-column">
+                <form class="d-flex flex-column" method="post" enctype="multipart/form-data" action="/exercíciosIndividuais/cantina/public/pagamento" id="formCarrinho">
                     <ul class="list-unstyled ul" id="carrinho">
 
                     </ul>
                     <span class="h5 fw-bold align-self-end">Total: <span id="valorTotal">R$20,00</span></span>
-                    <a href="/exercíciosIndividuais/cantina/public/pagamento" class="btn btn-dark text-decoration-none">Continuar comprando</a>
+                   
+
+
+                        <button type="submit"  class="btn btn-dark text-decoration-none">Continuar comprando</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -209,11 +214,11 @@
 
 <script>
    let produtosJson = [
-    {id:1, name:'Camisa1', img:'salgado.webp', price:6.00},
-    {id:2, name:'Camisa2', img:'paoQueijo.jpg', price:3.50},
-    {id:3, name:'Camisa3', img:'acai.jpg', price:12.00},
-    {id:4, name:'Camisa4', img:'mentos.jpg', price:2.00},
-    {id:5, name:'Camisa5', img:'halls.jpg', price:1.99},
+    {id:1, name:'Ficha de Salgado', img:'salgado.webp', price:6.00},
+    {id:2, name:'Pão de Queijo', img:'paoQueijo.jpg', price:3.50},
+    {id:3, name:'Açai', img:'acai.jpg', price:12.00},
+    {id:4, name:'Mentos de fruta', img:'mentos.jpg', price:2.00},
+    {id:5, name:'Halls preto', img:'halls.jpg', price:1.99},
     {id:6, name:'Camisa6', img:'./imagens/camisa-nike6.jpg', price:210.00},
     {id:7, name:'Camisa7', img:'./imagens/camisa-nike7.jpg', price:50.99},
     {id:8, name:'Camisa8', img:'./imagens/camisa-nike8.jpg', price:44.99},
@@ -252,7 +257,7 @@ function criarItem(produto) {
   novoItem.dataset.itemid = produto.id;
 
   const imagem = document.createElement('img');
-  imagem.src = 'http://localhost/exerc%C3%ADciosIndividuais/cantina/public/assets/img/'+produto.img;
+  imagem.src = 'http://localhost/exerc%C3%ADciosIndividuais/cantina/public/assets/img/' + produto.img;
   imagem.style.width = '30%';
   imagem.style.height = '30%';
   novoItem.appendChild(imagem);
@@ -287,6 +292,9 @@ function criarItem(produto) {
     }
 
     document.querySelector('#valorTotal').innerHTML = `R$ ${valorCarrinho.toFixed(2)}`;
+
+    // Atualizar valor da quantidade no campo de entrada
+    inputQuantidade.value = parseInt(divQuantidade.innerHTML);
   });
   div.appendChild(divMenos);
 
@@ -300,21 +308,44 @@ function criarItem(produto) {
   divMais.innerHTML = '+';
   divMais.addEventListener('click', () => {
     const quantidadeAtual = parseInt(divQuantidade.innerHTML);
-    divQuantidade.innerHTML = quantidadeAtual + 1;
-    span.innerHTML = `R$ ${(produto.price * (quantidadeAtual + 1)).toFixed(2)}`;
+    const novaQuantidade = quantidadeAtual + 1;
+    divQuantidade.innerHTML = novaQuantidade;
+    span.innerHTML = `R$ ${(produto.price * novaQuantidade).toFixed(2)}`;
     quantidadeCarrinho++;
     valorCarrinho += produto.price;
 
     document.querySelector('#valorTotal').innerHTML = `R$ ${valorCarrinho.toFixed(2)}`;
+
+    // Atualizar valor da quantidade no campo de entrada
+    inputQuantidade.value = novaQuantidade;
   });
   div.appendChild(divMais);
 
   valorCarrinho += produto.price;
   document.querySelector('#valorTotal').innerHTML = `R$ ${valorCarrinho.toFixed(2)}`;
 
+  // Criação do campo de entrada (input) com os valores do produto
+  const inputProduto = document.createElement('input');
+  inputProduto.type = 'hidden';
+  inputProduto.name = 'produtos[]';
+  inputProduto.value = JSON.stringify({
+    id: produto.id,
+    img: produto.img,
+    name: produto.name,
+    price: produto.price
+  });
+  novoItem.appendChild(inputProduto);
+
+  // Criação do campo de entrada (input) com a quantidade do produto
+  const inputQuantidade = document.createElement('input');
+  inputQuantidade.type = 'hidden';
+  inputQuantidade.name = 'quantidades[]';
+  inputQuantidade.value = parseInt(divQuantidade.innerHTML);
+  novoItem.appendChild(inputQuantidade);
+
   novoItem.appendChild(div);
   return novoItem;
-}
+}   
 
 function comprar(e) {
   alert('Adicionado ao carrinho');
