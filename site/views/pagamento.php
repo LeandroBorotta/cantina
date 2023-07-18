@@ -70,7 +70,7 @@
 </header>
 
 <main class="container p-5 d-flex align-items-center justify-content-center">
-    <form class="shadow p-5" action="/exercíciosIndividuais/cantina/public/">
+    <form class="shadow p-5" action="/exercíciosIndividuais/cantina/public/pagamentoFinal" method="post">
         <div class="mb-3">
             <label for="select" class="form-label">Forma de pagamento</label>
             <select class="form-select" aria-label="Default select example">
@@ -80,19 +80,34 @@
                 <option value="4">Cartão de crédito</option>  
             </select>
         </div>
+        
         <div class="mb-3">
-            <ul>
-                <li>1 açaí - R$12.00</li>
-            </ul>
+            
+        <ul>
+        {% set total = 0 %}
+
+    {% for key, produto in produtos %}
+        {% set quantidade = quantidades[key] %}
+        {% set subtotal = produto.price * quantidade %}
+        {% set total = total + subtotal %}
+        <li>{{ loop.index }} - {{ quantidade }} {{ produto.name }} - R$ {{ subtotal|number_format(2, '.', ',') }}</li>
+        
+        <input type="hidden" value="{{ quantidade }}" name="produtoQuantidade[]">
+        <input type="hidden" value="{{ produto.id }}" name="produtoId[]">
+    {% endfor %}
+        <input type="hidden" value="{{ total|number_format(2, '.', ',' )}}" name="totalCompra">
+        </ul>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Preço final:</label>
-            <input type="text" id="nome" name="total" value="R$12.00" class="form-control width" disabled>
+            <input type="text" id="nome" name="total" value="R${{ total|number_format(2, '.', ',' )}}" class="form-control width" disabled>
         </div>
       
         <div class="mb-3 text-center">
             <input type="submit" value="Confirmar pagamento" class="btn btn-primary">
         </div>
+        
+
     </form>
 </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>

@@ -49,4 +49,35 @@ class Produtos extends DatabaseConnection{
         }
         
     }
+
+    public static function venderProduto($quantidade, $id){
+        $pdo = self::getPDO();
+        
+        $quantidadeAtual = $pdo->prepare("SELECT quantidade FROM produtos WHERE id = :id");
+        $quantidadeAtual->bindValue(':id', $id);
+        $quantidadeAtual->execute();
+        
+        $resultado = $quantidadeAtual->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$resultado) {
+
+            return "Produto não encontrado.";
+        }
+
+        $quantidadeAtual = $resultado['quantidade'];
+
+        $quantidadeFinal = $quantidadeAtual - $quantidade;
+
+        $atualizarQuantidade = $pdo->prepare("UPDATE produtos set quantidade=$quantidadeFinal WHERE id=:id");
+        $atualizarQuantidade->bindValue(':id', $id);
+        $atualizarQuantidade->execute();
+
+        if ($atualizarQuantidade->rowCount() > 0) {
+            return true; 
+        } else {
+            return false; 
+        }
+
+
+    }
 }

@@ -46,4 +46,32 @@ class Adm extends DatabaseConnection{
             return false;
         }
     }
+
+    public static function aumentarCaixa($valor){
+        $pdo = self::getPDO();
+        
+        $selectEntrada= $pdo->prepare("SELECT entrada FROM adm");
+        $selectEntrada->execute();
+
+        $AtualEntrada = $selectEntrada->fetch(PDO::FETCH_ASSOC);
+        $AtualEntrada = $AtualEntrada['entrada'];
+
+        $selectCaixa= $pdo->prepare("SELECT caixa FROM adm");
+        $selectCaixa->execute();
+
+        $AtualCaixa = $selectCaixa->fetch(PDO::FETCH_ASSOC);
+        $AtualCaixa = $AtualCaixa['caixa'];
+
+        $caixaFinal = $AtualCaixa + $valor;
+        $entradaFinal = $AtualEntrada + $valor;
+
+        $atualizar = $pdo->prepare("UPDATE adm set entrada=$entradaFinal, caixa=$caixaFinal ");
+        $atualizar->execute();
+
+        if($atualizar->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
