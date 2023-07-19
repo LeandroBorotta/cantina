@@ -29,6 +29,8 @@ use Pecee\SimpleRouter\SimpleRouter;
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/config/{id}', 'ConfigController@user')->name('config');
     SimpleRouter::post('/exercíciosIndividuais/cantina/public/config/{id}', 'ConfigController@userAction')->name('config');
 
+    SimpleRouter::get('/exercíciosIndividuais/cantina/public/meusPedidos/{id}', 'PedidosController@index')->name('config');
+
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/adm', 'AdmController@adm')->name('adm');
 
     SimpleRouter::post('/exercíciosIndividuais/cantina/public/adm/estoque', 'AdmController@estoque')->name('adm');

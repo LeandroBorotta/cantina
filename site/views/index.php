@@ -54,6 +54,7 @@
                 
                 
                 {% if user == true %}
+                <a href="/exercíciosIndividuais/cantina/public/meusPedidos/{{ logado.id }}" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Meus pedidos</a>
                 <a href="/exercíciosIndividuais/cantina/public/config/{{ logado.id }}" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Configurações</a>
                 <a href="/exercíciosIndividuais/cantina/public/sair" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Sair</a>
                 {% else %}

@@ -10,20 +10,30 @@
         .width{
             width: 300px;
         }
+        .bg-gray{
+            background-color: #ccc;
+        }
+        .btn-8{
+            background-color: #888;
+            color: white;
+        }
+        .btn-8:hover{
+            background-color: #999;
+        }
     </style>
-    <title>Pagamento - Cantina</title>
+    <title>Config - Cantina</title>
 </head>
 <body>
     
 <div class="container-fluid text-center bg-black text-bg-dark p-3">
 </div>
 
-<header class="container-fluid border-bottom">    
+<header class="container-fluid">    
     <nav class="navbar">
         <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
             <span class="navbar-toggler-icon fs-4"></span>
         </button>
-        <span class="h1 fw-bold text-center">Pagamento</span>
+        <span class="h1 fw-bold text-center">Meu Perfil</span>
         <div class="align-items-center invisible">
             <a href="#" class="text-decoration-none" id="pesquisa">
                 <i class="bi-search fs-2 text-black"></i>
@@ -69,50 +79,42 @@
     
 </header>
 
-<main class="container p-5 d-flex align-items-center justify-content-center">
-    <form class="shadow p-5" action="/exercíciosIndividuais/cantina/public/pagamentoFinal" method="post">
-        <div class="mb-3">
-            <label for="select" class="form-label">Forma de pagamento</label>
-            <select class="form-select" aria-label="Default select example">
-                <option value="1">Pix</option>
-                <option value="2">Boleto Bancário</option>
-                <option value="3">Cartão de débito</option>
-                <option value="4">Cartão de crédito</option>  
-            </select>
-        </div>
-        
-        <div class="mb-3">
-            
-        <ul>
-        {% set total = 0 %}
+<main class="shadow text-dark p-5">
+    <table class="table border-dark border border-bottom">
+        <thead>
+        <tr>
+        <th scope="col" class="text-center">ID</th>
+        <th scope="col" class="text-center">PRODUTO</th>
+        <th scope="col" class="text-center" >QUANTIDADE</th>
+        <th scope="col" class="text-center">AÇÕES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <span class="text-danger h6 mb-2">{{vazio}}</span>
+        <span class="text-success h6 mb-2">{{ok}}</span>
+            {% for produto in produtos %}
+                {%if produto.quantidade < 20 %}
+                <tr class="table-danger">
+                    <td class="text-center">{{produto.id}}</td>
+                    <td class="text-center">{{produto.nome}}</td>
+                    <td class="text-center">{{produto.quantidade}}</td>
+                    <td class="text-center">
+                        <button type="button" class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#meuModal{{produto.id}}"><i class="bi bi-basket-fill h3 text-danger"></i></button>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td class="text-center">{{produto.id}}</td>
+                    <td class="text-center">{{produto.nome}}</td>
+                    <td class="text-center">{{produto.quantidade}}</td>
+                    <td class="text-center">
+                    <button type="button" class="bg-transparent border-0" data-bs-toggle="modal" data-bs-target="#meuModal{{produto.id}}"><i class="bi bi-basket-fill h3 text-success"></i></button>
+                    </td>
+                </tr>
+                {% endif%}
+            {% endfor %}
+    </tbody>
+    </table>
+    </div>
 
-    {% for key, produto in produtos %}
-        {% set quantidade = quantidades[key] %}
-        {% set subtotal = produto.price * quantidade %}
-        {% set total = total + subtotal %}
-        <li>{{ loop.index }} - {{ quantidade }} {{ produto.name }} - R$ {{ subtotal|number_format(2, '.', ',') }}</li>
-        
-        
-        <input type="hidden" value="{{ produto.name }}" name="produtoNome[]">
-        <input type="hidden" value="{{ quantidade }}" name="produtoQuantidade[]">
-        <input type="hidden" value="{{ produto.id }}" name="produtoId[]">
-    {% endfor %}
-        <input type="hidden" value="{{ idUser }}" name="idUser">
-        <input type="hidden" value="{{ total|number_format(2, '.', ',' )}}" name="totalCompra">
-        </ul>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Preço final:</label>
-            <input type="text" id="nome" name="total" value="R${{ total|number_format(2, '.', ',' )}}" class="form-control width" disabled>
-        </div>
-      
-        <div class="mb-3 text-center">
-            <input type="submit" value="Confirmar pagamento" class="btn btn-primary">
-        </div>
-        
-
-    </form>
-</main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-</body>
-</html>
