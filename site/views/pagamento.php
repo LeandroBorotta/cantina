@@ -98,6 +98,7 @@
         <input type="hidden" value="{{ produto.id }}" name="produtoId[]">
     {% endfor %}
         <input type="hidden" value="{{ idUser }}" name="idUser">
+        <input type="hidden" value="{{ nomeUser }}" name="nomeUser">
         <input type="hidden" value="{{ total|number_format(2, '.', ',' )}}" name="totalCompra">
         </ul>
         </div>

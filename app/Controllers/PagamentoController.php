@@ -77,6 +77,7 @@ class PagamentoController extends Controller
     public function pagamentoFinal(){
 
         $idUser = $_POST['idUser'] ?? null;
+        $nomeUser = $_POST['nomeUser'] ?? null;
         $produtosId = $_POST['produtoId'] ?? null;
         $produtosQuantidade = $_POST['produtoQuantidade'] ?? null;
         $totalCompra = $_POST['totalCompra'] ?? null;
@@ -105,7 +106,7 @@ class PagamentoController extends Controller
             $produtos = $produtoNome[0];
         }
         
-        Pedidos::adicionarPedido($idUser, $produtos, $quantidadeTotal, $totalCompra);
+        Pedidos::adicionarPedido($idUser, $produtos, $quantidadeTotal, $nomeUser, $totalCompra);
 
         for ($i = 0; $i < count($produtosId); $i++) {
             if(Produtos::venderProduto($produtosQuantidade[$i], $produtosId[$i]) && Adm::aumentarCaixa($totalCompra)){

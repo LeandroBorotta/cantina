@@ -32,6 +32,8 @@ use Pecee\SimpleRouter\SimpleRouter;
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/meusPedidos/{id}', 'PedidosController@index')->name('config');
 
     SimpleRouter::get('/exercíciosIndividuais/cantina/public/adm', 'AdmController@adm')->name('adm');
+    SimpleRouter::get('/exercíciosIndividuais/cantina/public/adm/pedidos', 'AdmController@pedidos')->name('adm');
+    SimpleRouter::get('/exercíciosIndividuais/cantina/public/adm/pedidos/apagar/{id}', 'AdmController@finalizarPedido')->name('adm');
 
     SimpleRouter::post('/exercíciosIndividuais/cantina/public/adm/estoque', 'AdmController@estoque')->name('adm');
     

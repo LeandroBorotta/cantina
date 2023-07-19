@@ -5,6 +5,7 @@ use Demo\Template\Controller;
 use Demo\Models\Usuarios;
 use Demo\Models\Produtos;
 use Demo\Models\Adm;
+use Demo\Models\Pedidos;
 
 class AdmController extends Controller{
     public function adm(){
@@ -16,6 +17,7 @@ class AdmController extends Controller{
 
         if(!$adm){
             header("location: /exercíciosIndividuais/cantina/public/");
+            exit;
         }
         
         $produtos = Produtos::getProdutos();
@@ -64,5 +66,38 @@ class AdmController extends Controller{
 
         header("Location: /exercíciosIndividuais/cantina/public/adm");
             exit;
+    }
+
+    public function pedidos(){
+        session_start();
+
+        $ok = isset($_SESSION['ok']) ? $_SESSION['ok'] : false;
+        $adm = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false;
+        $pedidos = Pedidos::pegarTodosPedidos();
+
+        if(!$adm){
+            header("location: /exercíciosIndividuais/cantina/public/");
+            exit;
+        }
+
+        $this->view('pedidosAdm.php', [
+            'pedidos' => $pedidos,
+            'ok' => $ok
+        ]);
+
+        unset($_SESSION['ok']);
+    }
+
+    public function finalizarPedido($id = null){
+        session_start();
+
+        if(pedidos::apagarPedido($id)){
+            $_SESSION['ok'] = 'O pedido foi finalizado concluída com sucesso!!';
+            header("Location: /exercíciosIndividuais/cantina/public/adm/pedidos");
+            exit;
+        }else{
+            header("Location: /exercíciosIndividuais/cantina/public/adm/pedidos");
+            exit;
+        }
     }
 }

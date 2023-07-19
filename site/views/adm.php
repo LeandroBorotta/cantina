@@ -48,6 +48,7 @@
         </div>
         <div class="offcanvas-body">
             <div class="container h-100 d-flex flex-column">
+                <a href="/exercíciosIndividuais/cantina/public/adm/pedidos" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Pedidos</a>
                 <a href="/exercíciosIndividuais/cantina/public/sair" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Sair</a>
 
             </div>

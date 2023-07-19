@@ -12,6 +12,14 @@ class Pedidos extends DatabaseConnection{
     private $quantidade;
     private $valorFinal;
 
+    public static function pegarTodosPedidos(){
+        $pdo = self::getPDO();
+        $select = $pdo->prepare("SELECT * FROM pedidos");
+        $select->execute();
+
+        return $select->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function pegarPedidosPorId($id){
         $pdo = self::getPDO();
         $select = $pdo->prepare("SELECT * FROM pedidos WHERE id_user = :id");
@@ -25,13 +33,14 @@ class Pedidos extends DatabaseConnection{
         }
     }
     
-    public static function adicionarPedido($id_user, $produtos, $quantidade, $valorFinal){
+    public static function adicionarPedido($id_user, $produtos, $quantidade, $nomeUser, $valorFinal){
         $pdo = self::getPDO();
-        $add = $pdo->prepare("INSERT INTO pedidos (id_user, produto, quantidade, valorFinal) VALUES (:id_user, :produto, :quantidade, :valorFinal)");
+        $add = $pdo->prepare("INSERT INTO pedidos (id_user, produto, quantidade, valorFinal, nome) VALUES (:id_user, :produto, :quantidade, :valorFinal, :nome)");
         $add->bindValue(':id_user', $id_user);
         $add->bindValue(':produto', $produtos);
         $add->bindValue(':quantidade', $quantidade);
         $add->bindValue(':valorFinal', $valorFinal);
+        $add->bindValue(':nome', $nomeUser);
     
         if ($add->execute()) {
             return true;
@@ -40,4 +49,17 @@ class Pedidos extends DatabaseConnection{
         return false;
     }
     
+
+    public static function apagarPedido($id){
+        $pdo = self::getPDO();
+        $delete = $pdo->prepare("DELETE FROM pedidos WHERE id = :id");
+        $delete->bindValue(":id", $id);
+        $delete->execute();
+    
+        if($delete->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }    
 }
