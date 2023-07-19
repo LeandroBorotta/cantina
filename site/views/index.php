@@ -163,20 +163,34 @@
 
         {% for produto in produtos %}
             <div class="col g-3">
-                <div class="card h-100" data-id="{{ produto.id }}">
+            {% if produto.quantidade < 10 %}
+            <div class="card h-100 bg-danger" data-id="{{ produto.id }}">
+            {% else %}
+            <div class="card h-100" data-id="{{ produto.id }}">
+            {% endif %}
                     <img src="http://localhost/exerc%C3%ADciosIndividuais/cantina/public/assets/img/{{ produto.foto }}" alt="Produto 1" class="card-img-top">
                     <div class="card-body text-center d-flex flex-column">
                         <div class="my-2 d-flex flex-column">
                             <span class="fw-bolder h5">{{ produto.nome }}</span>
                             <span class="me-2">R$ {{ produto.preco }}</span> 
                         </div>
-
+                        
+                        
                         {% if user == true %}
+
+                        {% if produto.quantidade < 10 %}
+                        <button disabled class="btn btn-dark btn-comprar">Indisponível</button>
+                        {% else %}
                         <button class="btn btn-dark btn-comprar">Comprar</button>
+                        {% endif %}
+
                         {% else %}
                         <button onclick="alert('Para efetuar uma compra você tem que estar logado, faça o login!')" class="btn btn-dark">Comprar</button>
                         {% endif %}
 
+                        {% if produto.quantidade < 10 %}
+                        <span class="text-light">PRODUTO ESGOTADO</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
