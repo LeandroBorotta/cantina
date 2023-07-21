@@ -61,10 +61,12 @@
                 <a href="/exercíciosIndividuais/cantina/public/login" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Entrar</a>
                 {% endif %}
 
-                <div class="input-group mb-3">
-                    <input type="search" class="form-control" placeholder="Buscar em nossa loja">
+                
+                <form class="input-group mb-3">
+                    <input type="search" class="form-control" id="buscar" name="search"  placeholder="Buscar em nossa loja">
                     <button type="submit" class="bi-search bg-light"></button>
-                </div>
+                </form>
+            
 
                 <div class="d-flex align-items-center ms-2">
                     <a href="https://www.linkedin.com/in/leandro-borotta-ab36b224b/" target="_blank" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
@@ -141,13 +143,13 @@
         <div class="carousel slide carousel-dark" data-bs-ride="carousel" data-bs-touch="true" id="promocao">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/img/Imagem 1.png" alt="Imagem1" class="w-100 d-block">
+                    <img src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/img/Compre 1 leve 3.png" alt="Imagem1" class="w-100 d-block">
                 </div>
                 <div class="carousel-item">
-                    <img src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/img/Imagem 2.png" alt="Imagem1" class="w-100 d-block">
+                    <img src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/img/Compre 1 leve 2 2.png" alt="Imagem1" class="w-100 d-block">
                 </div>
                 <div class="carousel-item">
-                    <img src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/img/Imagem 3.png" alt="Imagem1" class="w-100 d-block">
+                    <img src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/img/Compre 1 leve 2 1.png" alt="Imagem1" class="w-100 d-block">
                 </div>
             </div>
             <button class="carousel-control-next" data-bs-target="#promocao" data-bs-slide="next">
@@ -224,8 +226,39 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="http://localhost/exerc%c3%adciosIndividuais/cantina/public/assets/js/modals.js"></script>
 
+
+<script>
+
+            let text = '';
+
+            document.querySelector('#pesquisa').addEventListener('click', pesquisa);
+
+            async function pesquisa() {
+            const { value } = await Swal.fire({
+                title: 'Buscar',
+                input: 'text',
+                inputPlaceholder: 'Busque em nossa loja',
+                inputAttributes: {
+                name: 'searchTerm', 
+                maxlength: 30,
+                autocapitalize: 'off',
+                autocorrect: 'off'
+                }
+            });
+
+
+            text = value;
+
+
+            window.location = 'http://localhost/exerc%c3%adciosIndividuais/cantina/public?search='+text;
+
+            }
+
+
+  </script>
+
+</script>
 
 <script>
    let produtosJson = [
@@ -234,13 +267,13 @@
     {id:3, name:'Açai', img:'acai.jpg', price:12.00},
     {id:4, name:'Mentos de fruta', img:'mentos.jpg', price:2.00},
     {id:5, name:'Halls preto', img:'halls.jpg', price:1.99},
-    {id:6, name:'Camisa6', img:'./imagens/camisa-nike6.jpg', price:210.00},
-    {id:7, name:'Camisa7', img:'./imagens/camisa-nike7.jpg', price:50.99},
-    {id:8, name:'Camisa8', img:'./imagens/camisa-nike8.jpg', price:44.99},
-    {id:9, name:'Tenis1', img:'./imagens/tenis-nike1.jpg', price:510.99},
-    {id:10, name:'Tenis2', img:'./imagens/tenis-nike2.webp', price:799.00},
-    {id:11, name:'Tenis3', img:'./imagens/tenis-nike4.webp', price:899.99},
-    {id:12, name:'Tenis4', img:'./imagens/tenis-nike9.jpg', price:800.99}
+    {id:6, name:'Guaraná Antarctica', img:'guarana.jpg', price:4.50},
+    {id:7, name:'Trento', img:'trento.png', price:2.00},
+    {id:8, name:'Bioleve de maça verde', img:'bioleve.jpg', price:5.50},
+    {id:9, name:'Suco Prats de laranja', img:'sucoDeLaranja.jpg', price:3.00},
+    {id:10, name:'Cone recheado', img:'cone.jpg', price:10.00},
+    {id:11, name:'Paçoquinha', img:'pacoca.jpg', price:1.80},
+    {id:12, name:'Milkshake', img:'milkshake.jpg', price:8.00}
 ];
 
 

@@ -12,10 +12,11 @@ async function  pesquisa(){
         input: 'text',
         inputPlaceholder: 'Busque em nossa loja',
         inputAttributes: {
-          maxlength: 15,
+          maxlength: 30,
           autocapitalize: 'off',
           autocorrect: 'off'
         }
       })
       
+      console.log(text)
 }

@@ -20,6 +20,25 @@ class Produtos extends DatabaseConnection{
         return $select->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getProdutosBySearch($search = null)
+    {
+        $pdo = self::getPDO();
+        if ($search === NULL || empty($search) || $search === 'undefined') {
+            $select = $pdo->prepare("SELECT * FROM produtos");
+            $select->execute();
+    
+            $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $select = $pdo->prepare("SELECT * FROM produtos WHERE nome LIKE :search");
+            $select->bindValue(':search', "%$search%", PDO::PARAM_STR);
+            $select->execute();
+            
+            $result = $select->fetchAll(PDO::FETCH_ASSOC);
+        }
+    
+        return $result;
+    }
+
     public static function comprarProduto($id, $compra) {
         $pdo = self::getPDO();
         

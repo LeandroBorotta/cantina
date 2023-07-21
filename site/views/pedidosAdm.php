@@ -52,27 +52,6 @@
         <div class="offcanvas-body">
             <div class="container h-100 d-flex flex-column">
                 <a href="/exercíciosIndividuais/cantina/public/adm" class="d-block p-3 text-decoration-none text-dark fw-bolder border-bottom">Voltar para Home</a>
-
-                <div class="d-flex align-items-center ms-2 mt-3">
-                    <a href="#" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
-                        <i class="bi-linkedin fs-6 text-black"></i>
-                    </a> 
-                    <a href="#" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
-                        <i class="bi-instagram fs-6 text-black"></i>
-                    </a>   
-                    <a href="#" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
-                        <i class="bi-twitter fs-6 text-black"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
-                        <i class="bi-tiktok fs-6 text-black"></i>
-                    </a>  
-                    <a href="#" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
-                        <i class="bi-youtube fs-6 text-black"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none d-block border rounded-circle p-2 border-dark me-2">
-                        <i class="bi-facebook fs-6 text-black"></i>
-                    </a>            
-                </div>
             </div>
         </div>
     </div>
